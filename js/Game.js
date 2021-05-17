@@ -42,6 +42,7 @@ class Game {
     textSize(30);
     text("Game Start", 120, 100)
     Player.getPlayerInfo();
+    player.getCarsAtEnd();
 
     if(allPlayers !== undefined){
       background("#684132")
@@ -74,11 +75,42 @@ class Game {
       player.distance +=50
       player.update();
     }
-    if(player.distance>3800){
+    if(player.distance>500){
       gameState=2
+      player.rank=player.rank+1
+      Player.updateCarsAtEnd(player.rank)
+      player.update()
     }
   }
   end(){
     console.log("game over")
+    console.log(player.rank)
+  }
+  displayRanks(){
+
+    camera.position.x=0
+   camera.position.y=0
+   background("white")
+   image(rank1,-300,-100,200,200)
+   image(rank2,-100,-100,200,200)
+   image(rank3,100,-100,200,200)
+   image(rank4,300,-100,200,200)
+   Player.getPlayerInfo()
+   for(var plr in allPlayers){
+     textSize(25)
+     if(allPlayers[plr].rank===1){
+      
+       text("first;"+allPlayers[plr].name,-300,100)
+     }
+     else if(allPlayers[plr].rank===2){
+       text("second;"+allPlayers[plr].name,-100,100)
+     }
+     else if(allPlayers[plr].rank===3){
+       text("third;"+allPlayers[plr].name,100,100)
+     }
+     else if(allPlayers[plr].rank===4){
+       text("fourth;"+allPlayers[plr].name,300,100)
+     }
+   }
   }
 }
